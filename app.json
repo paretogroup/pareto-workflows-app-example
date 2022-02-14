@@ -1,0 +1,10 @@
+{
+    "$schema": "",
+    "key": "my_app",
+    "name": "My App",
+    "logoUrl": "",
+    "websiteUrl": "",
+    "auth": {},
+    "triggers": [],
+    "actions": []
+}

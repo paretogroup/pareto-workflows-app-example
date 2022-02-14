@@ -1,0 +1,30 @@
+{
+    "name": "pw-google-ads",
+    "private": true,
+    "scripts": {
+        "start": "node ./dist/main.js",
+        "dev": "pw dev",
+        "build": "pw build",
+        "deploy": "pw deploy"
+    },
+    "dependencies": {
+        "@nestjs/common": "^8.3.0",
+        "@nestjs/core": "^8.3.0",
+        "@nestjs/platform-express": "^8.3.0",
+        "@nestjs/swagger": "^5.2.0",
+        "@types/node": "^17.0.18",
+        "class-transformer": "^0.5.1",
+        "class-validator": "^0.13.2",
+        "rxjs": "^7.5.4"
+    },
+    "devDependencies": {
+        "@nestjs/cli": "^8.2.1",
+        "@nestjs/schematics": "^8.0.6",
+        "@paretogroup/pw-cli": "^1.0.0",
+        "typescript": "^4.5.5",
+        "ts-node": "^10.5.0"
+    },
+    "workspaces": [
+        "packages/*"
+    ]
+}

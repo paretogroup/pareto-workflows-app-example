@@ -73,6 +73,7 @@
             "key": "campaign_filter_matched",
             "name": "Campaign Filter Matched",
             "description": "Triggers when a campaign matches the filter",
+            "type": "polling",
             "inputs": [
                 {
                     "key": "account_id",
@@ -119,7 +120,21 @@
                         }
                     }
                 }
-            ]
+            ],
+            "pollingConfig": {
+                "restConfig": {
+                    "url": "/rpa/triggers/campaign_filter_matched/execute",
+                    "method": "POST",
+                    "headers": {
+                        "Authorization": "Bearer {{ data.authData.access_token }}"
+                    },
+                    "body": {
+                        "accountId": "{{ data.inputData.account_id }}",
+                        "filter": "{{ data.inputData.filter }}",
+                        "analysisPeriod": "{{ data.inputData.analysis_period }}"
+                    }
+                }
+            }
         }
     ],
     "actions": [
@@ -130,7 +145,7 @@
             "type": "rest",
             "inputs": [
                 {
-                    "key": "account",
+                    "key": "account_id",
                     "type": "select",
                     "options": {
                         "type": "dynamic",
@@ -145,7 +160,7 @@
                     }
                 },
                 {
-                    "key": "campaign",
+                    "key": "campaign_id",
                     "type": "select",
                     "options": {
                         "type": "dynamic",
@@ -153,7 +168,7 @@
                             "restConfig": {
                                 "url": "/campaigns",
                                 "queryParams": {
-                                    "accountId": "{{ data.inputData.account.id }}"
+                                    "accountId": "{{ data.inputData.account_id }}"
                                 },
                                 "headers": {
                                     "Authorization": "Bearer {{ data.authData.access_token }}"
@@ -167,8 +182,8 @@
                 "url": "/rpa/actions/pause_campaign/execute",
                 "method": "POST",
                 "body": {
-                    "accountId": "{{ data.inputData.account.id }}",
-                    "campaignId": "{{ data.inputData.campaign.id }}"
+                    "accountId": "{{ data.inputData.account_id }}",
+                    "campaignId": "{{ data.inputData.campaign_id }}"
                 }
             }
         }

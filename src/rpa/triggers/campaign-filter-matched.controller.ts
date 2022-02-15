@@ -3,9 +3,14 @@ import {CampaignFilterMatchedCommand} from "./campaign-filter-matched.command";
 
 @Controller('rpa/triggers/campaign_filter_matched')
 export class CampaignFilterMatchedController {
-    @Get('expression')
-    async expression() {
-        // logic to get expression options
+    @Get('expressions')
+    async expressions() {
+        return [
+            {
+                id: "impressions",
+                label: "Impressions"
+            }
+        ]
     }
 
     @Post('execute')

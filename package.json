@@ -5,7 +5,8 @@
         "start": "node ./dist/main.js",
         "dev": "pw dev",
         "build": "pw build",
-        "deploy": "pw deploy"
+        "deploy": "pw deploy",
+        "test": "jest"
     },
     "dependencies": {
         "@nestjs/common": "^8.3.0",

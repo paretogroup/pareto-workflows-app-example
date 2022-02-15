@@ -82,7 +82,7 @@
                         "type": "dynamic",
                         "dynamicConfig": {
                             "restConfig": {
-                                "url": "/accounts",
+                                "url": "/api/accounts",
                                 "headers": {
                                     "Authorization": "Bearer {{ data.authData.access_token }}"
                                 }
@@ -113,7 +113,7 @@
                         "staticConfig": {
                             "options": [
                                 {
-                                    "value": "this_month",
+                                    "id": "this_month",
                                     "label": "This month"
                                 }
                             ]
@@ -151,7 +151,7 @@
                         "type": "dynamic",
                         "dynamicConfig": {
                             "restConfig": {
-                                "url": "/accounts",
+                                "url": "/api/accounts",
                                 "headers": {
                                     "Authorization": "Bearer {{ data.authData.access_token }}"
                                 }
@@ -164,9 +164,9 @@
                     "type": "select",
                     "options": {
                         "type": "dynamic",
-                        "dynamicOptions": {
+                        "dynamicConfig": {
                             "restConfig": {
-                                "url": "/campaigns",
+                                "url": "/api/campaigns",
                                 "queryParams": {
                                     "accountId": "{{ data.inputData.account_id }}"
                                 },

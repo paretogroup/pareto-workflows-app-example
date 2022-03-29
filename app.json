@@ -1,10 +1,191 @@
 {
     "$schema": "",
-    "key": "my_app",
-    "name": "My App",
+    "key": "google_ads",
+    "name": "Google Ads",
     "logoUrl": "",
     "websiteUrl": "",
-    "auth": {},
-    "triggers": [],
-    "actions": []
+    "auth": {
+        "type": "oauth_2",
+        "oauthConfig": {
+            "authorizeConfig": {
+                "restConfig": {
+                    "url": "https://accounts.google.com/o/oauth2/v2/auth",
+                    "method": "GET",
+                    "queryParams": {
+                        "response_type": "code",
+                        "client_id": "{{ data.credentials.clientId }}",
+                        "scope": "openid email https://www.googleapis.com/auth/adwords",
+                        "redirect_uri": "{{ data.redirectUri }}"
+                    }
+                }
+            },
+            "accessTokenConfig": {
+                "restConfig": {
+                    "url": "https://oauth2.googleapis.com/token",
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    "queryParams": {
+                        "grant_type": "authorization_code",
+                        "code": "{{ data.code }}",
+                        "client_id": "{{ data.credentials.clientId }}",
+                        "client_secret": "{{ data.credentials.clientSecret }}",
+                        "redirect_uri": "{{ data.redirectUri }}"
+                    }
+                }
+            },
+            "refreshTokenConfig": {
+                "restConfig": {
+                    "url": "https://oauth2.googleapis.com/token",
+                    "method": "POST",
+                    "headers": {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    "queryParams": {
+                        "grant_type": "refresh_token",
+                        "refresh_token ": "{{ data.authData.refreshToken }}",
+                        "client_id": "{{ data.credentials.clientId }}",
+                        "client_secret": "{{ data.credentials.clientSecret }}"
+                    }
+                }
+            },
+            "testConfig": {
+                "restConfig": {
+                    "url": "https://openidconnect.googleapis.com/v1/userinfo",
+                    "method": "POST",
+                    "headers": {
+                        "Authorization": "Bearer {{ data.accessToken }}",
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    "queryParams": {
+                        "grant_type": "refresh_token",
+                        "refresh_token ": "{{ data.refreshToken }}",
+                        "client_id": "{{ data.clientId }}",
+                        "client_secret": "{{ data.clientSecret }}"
+                    }
+                }
+            }
+        }
+    },
+    "triggers": [
+        {
+            "key": "campaign_filter_matched",
+            "name": "Campaign Filter Matched",
+            "description": "Triggers when a campaign matches the filter",
+            "type": "polling",
+            "inputs": [
+                {
+                    "key": "account_id",
+                    "type": "select",
+                    "options": {
+                        "type": "dynamic",
+                        "dynamicConfig": {
+                            "restConfig": {
+                                "url": "/api/accounts",
+                                "headers": {
+                                    "Authorization": "Bearer {{ data.authData.access_token }}"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "key": "filter",
+                    "type": "expression",
+                    "expression": {
+                        "type": "dynamic",
+                        "dynamicConfig": {
+                            "restConfig": {
+                                "url": "/rpa/triggers/campaign_filter_matched/expressions",
+                                "headers": {
+                                    "Authorization": "Bearer {{ data.authData.access_token }}"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "key": "analysis_period",
+                    "type": "select",
+                    "options": {
+                        "type": "static",
+                        "staticConfig": {
+                            "options": [
+                                {
+                                    "id": "this_month",
+                                    "label": "This month"
+                                }
+                            ]
+                        }
+                    }
+                }
+            ],
+            "pollingConfig": {
+                "restConfig": {
+                    "url": "/rpa/triggers/campaign_filter_matched/execute",
+                    "method": "POST",
+                    "headers": {
+                        "Authorization": "Bearer {{ data.authData.access_token }}"
+                    },
+                    "body": {
+                        "accountId": "{{ data.inputData.account_id }}",
+                        "filter": "{{ data.inputData.filter }}",
+                        "analysisPeriod": "{{ data.inputData.analysis_period }}"
+                    }
+                }
+            }
+        }
+    ],
+    "actions": [
+        {
+            "key": "pause_campaign",
+            "name": "Pause Campaign",
+            "description": "Pauses a campaign",
+            "type": "rest",
+            "inputs": [
+                {
+                    "key": "account_id",
+                    "type": "select",
+                    "options": {
+                        "type": "dynamic",
+                        "dynamicConfig": {
+                            "restConfig": {
+                                "url": "/api/accounts",
+                                "headers": {
+                                    "Authorization": "Bearer {{ data.authData.access_token }}"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "key": "campaign_id",
+                    "type": "select",
+                    "options": {
+                        "type": "dynamic",
+                        "dynamicConfig": {
+                            "restConfig": {
+                                "url": "/api/campaigns",
+                                "queryParams": {
+                                    "accountId": "{{ data.inputData.account_id }}"
+                                },
+                                "headers": {
+                                    "Authorization": "Bearer {{ data.authData.access_token }}"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "restConfig": {
+                "url": "/rpa/actions/pause_campaign/execute",
+                "method": "POST",
+                "body": {
+                    "accountId": "{{ data.inputData.account_id }}",
+                    "campaignId": "{{ data.inputData.campaign_id }}"
+                }
+            }
+        }
+    ]
 }

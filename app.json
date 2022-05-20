@@ -4,66 +4,64 @@
     "name": "Google Ads",
     "logoUrl": "",
     "websiteUrl": "",
+    "metadata": {},
     "auth": {
-        "type": "oauth_2",
+        "type": "oauth",
+        "inputs": [],
         "oauthConfig": {
+            "credentials": {
+                "clientId": "{{ $$args.clientId }}",
+                "clientSecret": "{{ $$args.clientSecret }}"
+            },
             "authorizeConfig": {
-                "restConfig": {
-                    "url": "https://accounts.google.com/o/oauth2/v2/auth",
-                    "method": "GET",
-                    "queryParams": {
-                        "response_type": "code",
-                        "client_id": "{{ data.credentials.clientId }}",
-                        "scope": "openid email https://www.googleapis.com/auth/adwords",
-                        "redirect_uri": "{{ data.redirectUri }}"
-                    }
+                "url": "https://accounts.google.com/o/oauth2/v2/auth",
+                "method": "GET",
+                "queryParams": {
+                    "response_type": "code",
+                    "client_id": "{{ data.credentials.clientId }}",
+                    "scope": "openid email https://www.googleapis.com/auth/adwords",
+                    "redirect_uri": "{{ data.redirectUri }}"
                 }
             },
             "accessTokenConfig": {
-                "restConfig": {
-                    "url": "https://oauth2.googleapis.com/token",
-                    "method": "POST",
-                    "headers": {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    "queryParams": {
-                        "grant_type": "authorization_code",
-                        "code": "{{ data.code }}",
-                        "client_id": "{{ data.credentials.clientId }}",
-                        "client_secret": "{{ data.credentials.clientSecret }}",
-                        "redirect_uri": "{{ data.redirectUri }}"
-                    }
+                "url": "https://oauth2.googleapis.com/token",
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "queryParams": {
+                    "grant_type": "authorization_code",
+                    "code": "{{ data.code }}",
+                    "client_id": "{{ data.credentials.clientId }}",
+                    "client_secret": "{{ data.credentials.clientSecret }}",
+                    "redirect_uri": "{{ data.redirectUri }}"
                 }
             },
             "refreshTokenConfig": {
-                "restConfig": {
-                    "url": "https://oauth2.googleapis.com/token",
-                    "method": "POST",
-                    "headers": {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    "queryParams": {
-                        "grant_type": "refresh_token",
-                        "refresh_token ": "{{ data.authData.refreshToken }}",
-                        "client_id": "{{ data.credentials.clientId }}",
-                        "client_secret": "{{ data.credentials.clientSecret }}"
-                    }
+                "url": "https://oauth2.googleapis.com/token",
+                "method": "POST",
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "queryParams": {
+                    "grant_type": "refresh_token",
+                    "refresh_token ": "{{ data.authData.refreshToken }}",
+                    "client_id": "{{ data.credentials.clientId }}",
+                    "client_secret": "{{ data.credentials.clientSecret }}"
                 }
             },
             "testConfig": {
-                "restConfig": {
-                    "url": "https://openidconnect.googleapis.com/v1/userinfo",
-                    "method": "POST",
-                    "headers": {
-                        "Authorization": "Bearer {{ data.accessToken }}",
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    "queryParams": {
-                        "grant_type": "refresh_token",
-                        "refresh_token ": "{{ data.refreshToken }}",
-                        "client_id": "{{ data.clientId }}",
-                        "client_secret": "{{ data.clientSecret }}"
-                    }
+                "url": "https://openidconnect.googleapis.com/v1/userinfo",
+                "method": "POST",
+                "headers": {
+                    "Authorization": "Bearer {{ data.accessToken }}",
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                "queryParams": {
+                    "grant_type": "refresh_token",
+                    "refresh_token ": "{{ data.refreshToken }}",
+                    "client_id": "{{ data.clientId }}",
+                    "client_secret": "{{ data.clientSecret }}"
                 }
             }
         }
@@ -143,6 +141,9 @@
             "name": "Pause Campaign",
             "description": "Pauses a campaign",
             "type": "rest",
+            "sample": {},
+            "tag": [],
+            "details": {},
             "inputs": [
                 {
                     "key": "account_id",

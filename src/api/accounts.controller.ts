@@ -1,14 +1,14 @@
-import {Controller, Get} from "@nestjs/common";
+import { Controller, Get } from '@nestjs/common';
 
-@Controller("api/accounts")
+@Controller('api/accounts')
 export class AccountsController {
-    @Get()
-    async list() {
-        return [
-            {
-                id: "1231231234",
-                name: "Account A"
-            }
-        ];
-    }
+  @Get()
+  async list() {
+    return [
+      {
+        id: '1231231234',
+        name: 'Account A',
+      },
+    ];
+  }
 }

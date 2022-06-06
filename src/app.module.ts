@@ -1,11 +1,8 @@
-import {Module} from "@nestjs/common";
-import {RpaModule} from "./rpa/rpa.module";
-import {ApiModule} from "./api/api.module";
+import { Module } from '@nestjs/common';
+import { RpaModule } from './rpa/rpa.module';
+import { ApiModule } from './api/api.module';
 
 @Module({
-    imports: [
-        ApiModule,
-        RpaModule,
-    ]
+  imports: [ApiModule, RpaModule],
 })
 export class AppModule {}

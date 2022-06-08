@@ -1,9 +1,9 @@
-import { IsString } from "class-validator";
+import { IsString } from 'class-validator';
 
 export class PauseCampaignCommand {
-    @IsString()
-    accountId: string;
+  @IsString()
+  accountId: string;
 
-    @IsString()
-    campaignId: string;
+  @IsString()
+  campaignId: string;
 }

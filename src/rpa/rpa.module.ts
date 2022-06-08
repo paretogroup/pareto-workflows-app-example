@@ -1,14 +1,14 @@
-import {Module} from "@nestjs/common";
-import {PauseCampaignModule} from "./actions/pause-campaign.module";
-import {CampaignFilterMatchedModule} from "./triggers/campaign-filter-matched.module";
+import { Module } from '@nestjs/common';
+import { PauseCampaignModule } from './actions/pause-campaign.module';
+import { CampaignFilterMatchedModule } from './triggers/campaign-filter-matched.module';
 
 @Module({
-    imports: [
-        // triggers
-        CampaignFilterMatchedModule,
+  imports: [
+    // triggers
+    CampaignFilterMatchedModule,
 
-        // actions
-        PauseCampaignModule
-    ]
+    // actions
+    PauseCampaignModule,
+  ],
 })
 export class RpaModule {}

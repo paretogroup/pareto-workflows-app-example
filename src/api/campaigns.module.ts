@@ -1,7 +1,7 @@
-import {Module} from "@nestjs/common";
-import {CampaignsController} from "./campaigns.controller";
+import { Module } from '@nestjs/common';
+import { CampaignsController } from './campaigns.controller';
 
 @Module({
-    controllers: [CampaignsController]
+  controllers: [CampaignsController],
 })
 export class CampaignsModule {}

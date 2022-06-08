@@ -1,7 +1,7 @@
-import {Module} from "@nestjs/common";
-import {CampaignFilterMatchedController} from "./campaign-filter-matched.controller";
+import { Module } from '@nestjs/common';
+import { CampaignFilterMatchedController } from './campaign-filter-matched.controller';
 
 @Module({
-    controllers: [CampaignFilterMatchedController]
+  controllers: [CampaignFilterMatchedController],
 })
 export class CampaignFilterMatchedModule {}

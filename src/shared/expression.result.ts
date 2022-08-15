@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 
-export class PauseCampaignCommand {
+export class ExpressionResult {
   @IsString()
   @ApiProperty()
-  accountId: string;
+  id: string;
 
   @IsString()
   @ApiProperty()
-  campaignId: string;
+  label: string;
 }

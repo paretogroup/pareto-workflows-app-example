@@ -1,5 +1,5 @@
 {
-    "$schema": "",
+    "$schema": "https://pareto-workflows-app.s3.amazonaws.com/app-schema.json",
     "key": "google_ads",
     "name": "Google Ads",
     "logoUrl": "",
@@ -90,7 +90,7 @@
                 },
                 {
                     "key": "filter",
-                    "type": "expression",
+                    "type": "select",
                     "expression": {
                         "type": "dynamic",
                         "dynamicConfig": {
